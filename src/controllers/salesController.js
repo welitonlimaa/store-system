@@ -2,9 +2,9 @@ const { salesService } = require('../services');
 const errorMap = require('../utils/errorMap');
 
 const createSale = async (req, res) => {
-  const { name } = req.body;
+  const dataSale = req.body;
 
-  const { type, message } = await salesService.createProduct(name);
+  const { type, message } = await salesService.createSaleProduct(dataSale);
 
   if (type) return res.status(errorMap.mapError(type)).json(message);
 

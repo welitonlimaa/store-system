@@ -33,6 +33,25 @@
     "tests": []
   },
   {
+    "_id": "f948a219-a15d-4232-94f5-d9fa4370b32d",
+    "colId": "history",
+    "containerId": "",
+    "name": "http:/localhost:3000/ Copy Copy",
+    "url": "http://localhost:3000/sales",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-02-13T19:43:14.488Z",
+    "modified": "2023-02-13T23:18:34.316Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 5\n  }\n]",
+      "form": []
+    },
+    "tests": []
+  },
+  {
     "_id": "4f099d71-37ee-4d66-9097-28540dd286d9",
     "colId": "history",
     "containerId": "",

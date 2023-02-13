@@ -9,9 +9,12 @@ const getSales = async () => {
   return camelize(result);
 };
 
-const getSalesProducts = async () => {
+const getSalesProducts = async (saleId) => {
   const [result] = await connection.execute(
-    'SELECT * FROM StoreManager.sales_products',
+    `SELECT sale_id AS id, product_id, quantity
+      FROM StoreManager.sales_products
+        where sale_id = ?`,
+    [saleId],
   );
   return camelize(result);
 };
