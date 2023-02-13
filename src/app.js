@@ -16,4 +16,6 @@ app.get('/', (_request, response) => {
 
 app.use('/products', routers.productsRouter);
 
+app.use('/sales', routers.salesRouter);
+
 module.exports = app;

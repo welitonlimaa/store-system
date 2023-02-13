@@ -11,12 +11,14 @@ const validateNewProduct = (name) => {
   const { error } = addProductSchema
     .validate({ name });
 
-  if (error.message.includes('required')) {
-    return { type: 'BAD_REQUEST', message: { message: error.message } };
-  }
+  if (error) {
+    if (error.message.includes('required')) {
+      return { type: 'BAD_REQUEST', message: { message: error.message } };
+    }
 
-  if (error.message.includes('length')) {
-    return { type: 'INVALID_VALUE', message: { message: error.message } };
+    if (error.message.includes('length')) {
+      return { type: 'INVALID_VALUE', message: { message: error.message } };
+    }
   }
 
   return { type: null, message: '' };
