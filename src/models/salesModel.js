@@ -11,7 +11,7 @@ const getSales = async () => {
 
 const getSalesProducts = async () => {
   const [result] = await connection.execute(
-    'SELECT * FROM StoreManager.sales',
+    'SELECT * FROM StoreManager.sales_products',
   );
   return camelize(result);
 };
