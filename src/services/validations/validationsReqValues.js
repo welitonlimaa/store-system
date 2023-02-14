@@ -40,7 +40,7 @@ const validateProductId = async (salesData) => {
     productsModel.getById(productId)));
 
   if (hasProduct.includes(undefined)) {
-    return { type: 'PRODUCT_NOT_FOUND', message: { message: 'Product not found' } };
+    return { type: 'NOT_FOUND', message: { message: 'Product not found' } };
   }
   return { type: null, message: '' };
 };

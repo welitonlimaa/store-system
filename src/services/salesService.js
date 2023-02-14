@@ -21,6 +21,23 @@ const createSaleProduct = async (salesData) => {
   return { type: null, message: { id: saleId, itemsSold: createdSale } };
 };
 
+const getAllSales = async () => {
+  const result = await salesModel.getAll();
+  return { type: null, message: result };
+};
+
+const getSaleById = async (saleId) => {
+  const error = schema.validateId(saleId);
+  if (error.type) return error;
+
+  const sale = await salesModel.getById(saleId);
+  if (sale[0] === undefined) return { type: 'NOT_FOUND', message: { message: 'Sale not found' } };
+
+  return { type: null, message: sale };
+};
+
 module.exports = {
   createSaleProduct,
+  getAllSales,
+  getSaleById,
 };
