@@ -3,26 +3,24 @@ const camelize = require('camelize');
 const connection = require('./connection');
 
 const getSales = async () => {
-  const [result] = await connection.execute(
+  const [[result]] = await connection.execute(
     'SELECT * FROM StoreManager.sales',
   );
   return camelize(result);
 };
 
 const getSalesProducts = async (saleId) => {
+  console.log(saleId);
   const [result] = await connection.execute(
-    `SELECT sale_id AS id, product_id, quantity
-      FROM StoreManager.sales_products
-        where sale_id = ?`,
+    'SELECT product_id, quantity FROM StoreManager.sales_products WHERE sale_id = ? ',
     [saleId],
   );
   return camelize(result);
 };
 
-const insertSale = async (saleId) => {
+const insertSale = async () => {
   const [{ insertId }] = await connection.execute(
-    'INSERT INTO StoreManager.sales (id) VALUE (?)',
-    [saleId],
+    'INSERT INTO StoreManager.sales () VALUE ()',
   );
 
   return insertId;

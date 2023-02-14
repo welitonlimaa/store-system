@@ -1,4 +1,5 @@
-const { idSchema, addProductSchema } = require('./schemas');
+const { idSchema, addProductSchema, saleSchema } = require('./schemas');
+const { productsModel } = require('../../models');
 
 const validateId = (id) => {
   const { error } = idSchema.validate(id);
@@ -24,7 +25,29 @@ const validateNewProduct = (name) => {
   return { type: null, message: '' };
 };
 
+const validateNewSale = ({ productId, quantity }) => {
+  const { error } = saleSchema.validate({ productId, quantity });
+  console.log(error);
+  if (error) {
+    return { type: 'INVALID_VALUE', message: { message: error.message } };
+  }
+
+  return { type: null, message: '' };
+};
+
+const validateProductId = async (salesData) => {
+  const hasProduct = await Promise.all(salesData.map(({ productId }) =>
+    productsModel.getById(productId)));
+
+  if (hasProduct.includes(undefined)) {
+    return { type: 'PRODUCT_NOT_FOUND', message: { message: 'Product not found' } };
+  }
+  return { type: null, message: '' };
+};
+
 module.exports = {
   validateId,
   validateNewProduct,
+  validateNewSale,
+  validateProductId,
 };
