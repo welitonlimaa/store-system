@@ -27,7 +27,7 @@ const validateNewProduct = (name) => {
 
 const validateNewSale = ({ productId, quantity }) => {
   const { error } = saleSchema.validate({ productId, quantity });
-  console.log(error);
+
   if (error) {
     return { type: 'INVALID_VALUE', message: { message: error.message } };
   }
