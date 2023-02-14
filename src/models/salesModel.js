@@ -28,7 +28,7 @@ const getById = async (saleId) => {
 
 const getSalesProducts = async (saleId) => {
   const [result] = await connection.execute(
-    'SELECT product_id, quantity FROM StoreManager.sales_products WHERE sale_id = ? ',
+    'SELECT product_id, quantity FROM StoreManager.sales_products WHERE sale_id = ?',
     [saleId],
   );
   return camelize(result);
@@ -44,7 +44,7 @@ const insertSale = async () => {
 
 const insertSaleProduct = async (saleId, productId, quantity) => {
   const [{ insertId }] = await connection.execute(
-    'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUE (?, ?, ?);',
+    'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUE (?, ?, ?)',
     [saleId, productId, quantity],
   );
 

@@ -66,6 +66,25 @@
     "tests": []
   },
   {
+    "_id": "fd3c5308-bd7c-4553-b895-3acf89e6ffd4",
+    "colId": "history",
+    "containerId": "",
+    "name": "http:/localhost:3000/ Copy",
+    "url": "http://localhost:3000/products/99",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-02-13T19:43:14.488Z",
+    "modified": "2023-02-14T20:51:52.722Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Martelo do thop\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
     "_id": "4f099d71-37ee-4d66-9097-28540dd286d9",
     "colId": "history",
     "containerId": "",
