@@ -11,14 +11,14 @@ const createSaleProduct = async (salesData) => {
   if (error.type) return error;
 
   const saleId = await salesModel.insertSale();
-  await Promise.all(salesData.map(async (data) => {
-    const { productId, quantity } = data;
+
+  await Promise.all(salesData.map(async ({ productId, quantity }) => {
     await salesModel.insertSaleProduct(saleId, productId, quantity);
   }));
 
-  const createdSale = await salesModel.getSalesProducts(saleId);
+  // const createdSale = await salesModel.getSalesProducts(saleId);
 
-  return { type: null, message: { id: saleId, itemsSold: createdSale } };
+  return { type: null, message: { id: saleId, itemsSold: salesData } };
 };
 
 const getAllSales = async () => {
@@ -41,7 +41,6 @@ const deleteSale = async (saleId) => {
   if (errorId.type) return errorId;
 
   const sale = await salesModel.getSaleById(saleId);
-  console.log(sale);
   if (!sale) return { type: 'NOT_FOUND', message: { message: 'Sale not found' } };
 
   await salesModel.deleteSaleProduct(saleId);
@@ -50,9 +49,31 @@ const deleteSale = async (saleId) => {
   return { type: '', message: { message: '' } };
 };
 
+const updateSale = async (id, salesData) => {
+  for (let i = 0; i < salesData.length; i += 1) {
+    const error = schema.validateNewSale(salesData[i]);
+    if (error.type) return error;
+  }
+
+  const error = await schema.validateProductId(salesData);
+  if (error.type) return error;
+
+  const sale = await salesModel.getSaleById(id);
+  if (!sale) return { type: 'NOT_FOUND', message: { message: 'Sale not found' } };
+
+  await salesModel.deleteSaleProduct(id);
+
+  await Promise.all(salesData.map(async ({ productId, quantity }) => {
+    await salesModel.insertSaleProduct(id, productId, quantity);
+  }));
+
+  return { type: null, message: { saleId: id, itemsUpdated: salesData } };
+};
+
 module.exports = {
   createSaleProduct,
   getAllSales,
   getSaleById,
   deleteSale,
+  updateSale,
 };
