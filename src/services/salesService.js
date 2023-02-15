@@ -36,8 +36,23 @@ const getSaleById = async (saleId) => {
   return { type: null, message: sale };
 };
 
+const deleteSale = async (saleId) => {
+  const errorId = schema.validateId(saleId);
+  if (errorId.type) return errorId;
+
+  const sale = await salesModel.getSaleById(saleId);
+  console.log(sale);
+  if (!sale) return { type: 'NOT_FOUND', message: { message: 'Sale not found' } };
+
+  await salesModel.deleteSaleProduct(saleId);
+  await salesModel.deleteSale(saleId);
+
+  return { type: '', message: { message: '' } };
+};
+
 module.exports = {
   createSaleProduct,
   getAllSales,
   getSaleById,
+  deleteSale,
 };

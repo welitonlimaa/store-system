@@ -26,6 +26,14 @@ const getById = async (saleId) => {
   return camelize(result);
 };
 
+const getSaleById = async (saleId) => {
+  const [[result]] = await connection.execute(
+    'SELECT * FROM StoreManager.sales WHERE id = ?',
+    [saleId],
+  );
+  return camelize(result);
+};
+
 const getSalesProducts = async (saleId) => {
   const [result] = await connection.execute(
     'SELECT product_id, quantity FROM StoreManager.sales_products WHERE sale_id = ?',
@@ -51,10 +59,23 @@ const insertSaleProduct = async (saleId, productId, quantity) => {
   return insertId;
 };
 
+const deleteSaleProduct = async (saleId) => connection.execute(
+  'DELETE FROM StoreManager.sales_products WHERE sale_id = ?',
+  [saleId],
+);
+
+const deleteSale = async (saleId) => connection.execute(
+  'DELETE FROM StoreManager.sales WHERE id = ?',
+  [saleId],
+);
+
 module.exports = {
   getAll,
   getById,
+  getSaleById,
   getSalesProducts,
   insertSale,
   insertSaleProduct,
+  deleteSale,
+  deleteSaleProduct,
 };

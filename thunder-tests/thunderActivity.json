@@ -99,6 +99,20 @@
     "tests": []
   },
   {
+    "_id": "6010c801-d34c-4666-99dd-923448c34444",
+    "colId": "history",
+    "containerId": "",
+    "name": "http:/localhost:3000/ Copy Copy Copy",
+    "url": "http://localhost:3000/sales/99",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2023-02-13T19:43:14.488Z",
+    "modified": "2023-02-15T19:13:42.488Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
     "_id": "4f099d71-37ee-4d66-9097-28540dd286d9",
     "colId": "history",
     "containerId": "",
