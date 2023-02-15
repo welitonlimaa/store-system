@@ -9,9 +9,29 @@ const products = [
   }
 ];
 
-const notfound = { message: "Product not found" };
+const newProduct = {
+  id: 3,
+  name: "ProdutoX"
+};
+
+const updatedProduct = {
+  id: 1,
+  name: "ProdutoX"
+};
+
+const errorInvalidValue = {
+  type: "INVALID_VALUE",
+  message: {
+    message: '"name" length must be at least 5 characters long'
+  }
+};
+
+const notfound = { type: 'NOT_FOUND', message: { message: 'Product not found' } }
 
 module.exports = {
   products,
+  newProduct,
+  updatedProduct,
   notfound,
+  errorInvalidValue,
 }

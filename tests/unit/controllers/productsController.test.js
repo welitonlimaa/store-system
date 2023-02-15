@@ -7,7 +7,13 @@ chai.use(sinonChai);
 
 const { productsService } = require('../../../src/services');
 const { productsController } = require('../../../src/controllers');
-const { products, notfound } = require('./mock/controllerMock');
+const {
+  products,
+  notfound,
+  newProduct,
+  errorInvalidValue,
+  updatedProduct
+} = require('./mock/controllerMock');
 
 
 describe('Teste de unidade do Products Controller', function () {
@@ -38,12 +44,12 @@ describe('Teste de unidade do Products Controller', function () {
 
     sinon
       .stub(productsService, 'getProductsById')
-      .resolves({ type: 'NOT_FOUND', message: notfound });
+      .resolves(notfound);
 
     await productsController.getProductById(req, res);
 
     expect(res.status).to.have.been.calledWith(404);
-    expect(res.json).to.have.been.calledWith(notfound);
+    expect(res.json).to.have.been.calledWith(notfound.message);
   });
 
   it('Deve retornar o status 200 para um produto existente', async function () {
@@ -63,6 +69,92 @@ describe('Teste de unidade do Products Controller', function () {
 
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith(products[0]);
+  });
+
+  it('Deve retornar o status 201 para um novo produto criado', async function () {
+    const res = {};
+    const req = {
+      body: {
+        name: "ProdutoX"
+      },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(productsService, 'createProduct')
+      .resolves({ type: null, message: newProduct });
+
+    await productsController.createProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(newProduct);
+  });
+
+  it('Deve retornar o status 422 ao tentar inserir um nome com menos de 5 caracteres', async function () {
+    const res = {};
+    const req = {
+      body: {
+        name: "Pr"
+      },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(productsService, 'createProduct')
+      .resolves(errorInvalidValue);
+
+    await productsController.createProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith(errorInvalidValue.message);
+  });
+
+  it('Deve retornar o status 201 para um update bem sucedido', async function () {
+    const res = {};
+    const req = {
+      params: { id: 1 },
+      body: {
+        name: "ProdutoX"
+      },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(productsService, 'updateProduct')
+      .resolves({ message: updatedProduct });
+
+    await productsController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(updatedProduct);
+  });
+
+  it('Deve retornar o status 404 por tentar atualizar um produto inexistente', async function () {
+    const res = {};
+    const req = {
+      params: { id: 99 },
+      body: {
+        name: "ProdutoX"
+      },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(productsService, 'updateProduct')
+      .resolves(notfound);
+
+    await productsController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith(notfound.message);
   });
 
   afterEach(function () {
