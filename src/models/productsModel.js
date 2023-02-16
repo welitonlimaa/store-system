@@ -1,5 +1,5 @@
 const camelize = require('camelize');
-// const snakeize = require('snakeize');
+
 const connection = require('./connection');
 
 const getAll = async () => {
@@ -13,6 +13,13 @@ const getById = async (productId) => {
   const [[result]] = await connection.execute(
     'SELECT * FROM StoreManager.products WHERE id = ?',
     [productId],
+  );
+  return camelize(result);
+};
+
+const getProductsByName = async (name) => {
+  const [result] = await connection.execute(
+    `SELECT * FROM StoreManager.products WHERE name LIKE '%${name}%'`,
   );
   return camelize(result);
 };
@@ -39,6 +46,7 @@ const deleteProduct = async (productId) => connection.execute(
 module.exports = {
   getAll,
   getById,
+  getProductsByName,
   insert,
   update,
   deleteProduct,

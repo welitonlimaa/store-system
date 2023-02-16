@@ -17,6 +17,11 @@ const getProductsById = async (productId) => {
   return { type: null, message: product };
 };
 
+const searchProduct = async (name) => {
+  const result = await productsModel.getProductsByName(name);
+  return { type: null, message: result };
+};
+
 const createProduct = async (name) => {
   const error = schema.validateNewProduct(name);
   if (error.type) return error;
@@ -60,4 +65,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  searchProduct,
 };

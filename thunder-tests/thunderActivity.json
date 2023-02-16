@@ -144,5 +144,25 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "6c711570-46e1-4261-8b13-a42f1f4750d1",
+    "colId": "history",
+    "containerId": "",
+    "name": "http:/localhost:3000/products Copy",
+    "url": "http://localhost:3000/products/search?q=",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-02-13T19:43:30.013Z",
+    "modified": "2023-02-16T18:11:44.565Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "",
+        "isPath": false
+      }
+    ],
+    "tests": []
   }
 ]
