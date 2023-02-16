@@ -21,6 +21,11 @@ const mockError = {
   }
 };
 
+const errorIdNotNumber = {
+  type: "INVALID_VALUE",
+  message: '"id" must be a number'
+};
+
 const notfound = { type: 'NOT_FOUND', message: { message: 'Product not found' } }
 
 module.exports = {
@@ -28,4 +33,5 @@ module.exports = {
   newProduct,
   mockError,
   notfound,
+  errorIdNotNumber,
 }

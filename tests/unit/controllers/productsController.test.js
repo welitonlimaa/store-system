@@ -12,7 +12,8 @@ const {
   notfound,
   newProduct,
   errorInvalidValue,
-  updatedProduct
+  updatedProduct,
+  errorIdNotNumber
 } = require('./mock/controllerMock');
 
 
@@ -155,6 +156,50 @@ describe('Teste de unidade do Products Controller', function () {
 
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(notfound.message);
+  });
+
+  it('Deve retornar o status 422 ao tentar atualizar com name com menos de 5 caracteres', async function () {
+    const res = {};
+    const req = {
+      params: { id: 1 },
+      body: {
+        name: "Pr"
+      },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(productsService, 'updateProduct')
+      .resolves(errorInvalidValue);
+
+    await productsController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith(errorInvalidValue.message);
+  });
+
+  it('Deve retornar o status 422 ao tentar atualizar com name com menos de 5 caracteres', async function () {
+    const res = {};
+    const req = {
+      params: { id: 'alo' },
+      body: {
+        name: "ProdutoX"
+      },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(productsService, 'updateProduct')
+      .resolves(errorIdNotNumber);
+
+    await productsController.updateProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(422);
+    expect(res.json).to.have.been.calledWith(errorIdNotNumber.message);
   });
 
   afterEach(function () {

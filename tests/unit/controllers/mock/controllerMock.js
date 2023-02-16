@@ -26,7 +26,12 @@ const errorInvalidValue = {
   }
 };
 
-const notfound = { type: 'NOT_FOUND', message: { message: 'Product not found' } }
+const notfound = { type: 'NOT_FOUND', message: { message: 'Product not found' } };
+
+const errorIdNotNumber = {
+  type: "INVALID_VALUE",
+  message: '"id" must be a number'
+};
 
 module.exports = {
   products,
@@ -34,4 +39,5 @@ module.exports = {
   updatedProduct,
   notfound,
   errorInvalidValue,
+  errorIdNotNumber
 }
