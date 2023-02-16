@@ -32,6 +32,16 @@ describe('Testes de unidade do Model de Sales', function () {
     expect(result).to.be.deep.equal(salesById);
   });
 
+  it('Deleta uma venda', async function () {
+    sinon.stub(connection, 'execute').resolves(true);
+
+    const resultSaleProduct = await salesModel.deleteSaleProduct(1);
+    const resultSale = await salesModel.deleteSale(1);
+
+    expect(resultSaleProduct).to.be.deep.equal(true);
+    expect(resultSale).to.be.deep.equal(true);
+  });
+
   afterEach(function () {
     sinon.restore();
   });

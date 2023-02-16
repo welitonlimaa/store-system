@@ -5,8 +5,8 @@ const sinonChai = require('sinon-chai');
 const { expect } = chai;
 chai.use(sinonChai);
 
-const { productsService } = require('../../../src/services');
-const { productsController } = require('../../../src/controllers');
+const { productsService, salesService } = require('../../../src/services');
+const { productsController, salesController } = require('../../../src/controllers');
 const {
   products,
   notfound,
@@ -201,6 +201,24 @@ describe('Teste de unidade do Products Controller', function () {
     expect(res.status).to.have.been.calledWith(422);
     expect(res.json).to.have.been.calledWith(errorIdNotNumber.message);
   });
+
+  // it('Deve retornar o status 204 ao deletar um produto com sucesso', async function () {
+  //   const res = {};
+  //   const req = {
+  //     params: { id: 1 },
+  //   };
+
+  //   res.status = sinon.stub().returns(res);
+  //   res.json = sinon.stub().returns();
+
+  //   sinon
+  //     .stub(salesService, 'deleteSale')
+  //     .resolves({ type: '', message: { message: '' } });
+
+  //   await salesController.deleteSale(req, res);
+
+  //   expect(res.status).to.have.been.calledWith(204);
+  // });
 
   afterEach(function () {
     sinon.restore();

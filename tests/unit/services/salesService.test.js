@@ -68,6 +68,24 @@ describe('Verificando Sales Service', function () {
     expect(result).to.deep.equal(saleNotFound);
   });
 
+  it('Deleta uma venda', async function () {
+    sinon.stub(salesModel, 'getSaleById').resolves(true);
+    sinon.stub(salesModel, 'deleteSale').resolves(true);
+    sinon.stub(salesModel, 'deleteSaleProduct').resolves(true);
+
+    const result = await salesService.deleteSale(1);
+
+    expect(result).to.deep.equal({ type: '', message: { message: '' } });
+  });
+
+  it('retorna error ao deletar uma venda inexistente', async function () {
+    sinon.stub(salesModel, 'getSaleById').resolves(false);
+
+    const result = await salesService.deleteSale(1);
+
+    expect(result).to.deep.equal(saleNotFound);
+  });
+
   afterEach(function () {
     sinon.restore();
   });
