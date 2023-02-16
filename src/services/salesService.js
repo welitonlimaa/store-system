@@ -49,6 +49,15 @@ const deleteSale = async (saleId) => {
   return { type: '', message: { message: '' } };
 };
 
+const updateSaleByLimit = async (saleId, salesData) => {
+  const size = salesData.length - 1;
+  for (let i = size; i >= 0; i -= 1) {
+    const limit = size + i;
+    console.log(limit, salesData[i]);
+    salesModel.updateSale(limit, saleId, salesData[i]);
+  }
+};
+
 const updateSale = async (id, salesData) => {
   for (let i = 0; i < salesData.length; i += 1) {
     const error = schema.validateNewSale(salesData[i]);
@@ -61,15 +70,16 @@ const updateSale = async (id, salesData) => {
   const sale = await salesModel.getSaleById(id);
   if (!sale) return { type: 'NOT_FOUND', message: { message: 'Sale not found' } };
 
-  await salesModel.deleteSaleProduct(id);
-
-  await Promise.all(salesData.map(async ({ productId, quantity }) => {
-    await salesModel.insertSaleProduct(id, productId, quantity);
-  }));
+  await updateSaleByLimit(id, salesData);
 
   return { type: null, message: { saleId: id, itemsUpdated: salesData } };
 };
 
+// await salesModel.deleteSaleProduct(id);
+
+// await Promise.all(salesData.map(async ({ productId, quantity }) => {
+//   await salesModel.insertSaleProduct(id, productId, quantity);
+// }));
 module.exports = {
   createSaleProduct,
   getAllSales,
