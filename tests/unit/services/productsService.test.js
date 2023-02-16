@@ -6,7 +6,7 @@ const { productsModel } = require('../../../src/models');
 const { products, newProduct, mockError, notfound } = require('./mock/productsMock');
 
 describe('Verificando Products services', function () {
-  it('retorna a lista completa de pessoas passageiras', async function () {
+  it('retorna a lista de produtos', async function () {
 
     sinon.stub(productsModel, 'getAll').resolves(products);
 
@@ -16,7 +16,7 @@ describe('Verificando Products services', function () {
     expect(result.message).to.deep.equal(products);
   });
 
-  it('retorna um erro caso a pessoa passageira não existe', async function () {
+  it('retorna um erro caso o id do produto não existe', async function () {
     sinon.stub(productsModel, 'getById').resolves(undefined);
 
     const result = await productsService.getProductsById(1);
@@ -25,7 +25,7 @@ describe('Verificando Products services', function () {
     expect(result.message.message).to.equal('Product not found');
   });
 
-  it('retorna a pessoa passageira caso ID existente', async function () {
+  it('retorna o produto caso id do produto existente', async function () {
     sinon.stub(productsModel, 'getById').resolves(products[0]);
 
     const result = await productsService.getProductsById(1);

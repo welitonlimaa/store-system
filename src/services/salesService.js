@@ -16,8 +16,6 @@ const createSaleProduct = async (salesData) => {
     await salesModel.insertSaleProduct(saleId, productId, quantity);
   }));
 
-  // const createdSale = await salesModel.getSalesProducts(saleId);
-
   return { type: null, message: { id: saleId, itemsSold: salesData } };
 };
 

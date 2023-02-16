@@ -34,6 +34,34 @@ const createdSale = {
   ]
 };
 
+const salesList = [
+  {
+    saleId: 1,
+    date: "2021-09-09T04:54:29.000Z",
+    productId: 1,
+    quantity: 2
+  },
+  {
+    saleId: 1,
+    date: "2021-09-09T04:54:54.000Z",
+    productId: 2,
+    quantity: 2
+  }
+];
+
+const saleListById = [
+  {
+    date: "2021-09-09T04:54:29.000Z",
+    productId: 1,
+    quantity: 2
+  },
+  {
+    date: "2021-09-09T04:54:54.000Z",
+    productId: 2,
+    quantity: 2
+  }
+]
+
 const errorInvalidValue = {
   type: "INVALID_VALUE",
   message: {
@@ -41,7 +69,9 @@ const errorInvalidValue = {
   }
 };
 
-const notfound = { type: 'NOT_FOUND', message: { message: 'Product not found' } }
+const notfound = { type: 'NOT_FOUND', message: { message: 'Product not found' } };
+
+const saleNotFound = { type: 'NOT_FOUND', message: { message: 'Sale not found' } }
 
 module.exports = {
   newSale,
@@ -49,4 +79,7 @@ module.exports = {
   errorInvalidValue,
   notfound,
   newSaleError,
+  salesList,
+  saleListById,
+  saleNotFound,
 }
