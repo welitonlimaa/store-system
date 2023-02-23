@@ -29,5 +29,31 @@ A API é um sistema de gerenciamento de vendas no formato dropshipping em que se
 - Ele te dará acesso ao terminal interativo do container criado pelo compose, que está rodando em segundo plano.
 
 > :information_source: Instale as dependências [**Caso existam**] com `npm install`
+  
+  3. Scripts
+
+- Criar o banco de dados e gerar as tabelas:
+
+```sh
+  npm run migration
+```
+
+- Limpar e popular o banco de dados:
+
+```sh
+  npm run seed
+```
+
+- Iniciar o servidor Node:
+
+```sh
+  npm start
+```
+
+- Iniciar o servidor Node com nodemon:
+
+```sh
+  npm run debug
+```
 
 </details>
