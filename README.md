@@ -1,4 +1,4 @@
-# Store System (Arquitetura MSC)
+# Store System (Node.js + Arquitetura MSC)
 
 Nesse projeto foi desenvolvido uma API RESTful utilizando a arquitetura MSC (model-service-controller).
 
