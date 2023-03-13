@@ -1,4 +1,4 @@
-# Store System (Back-End)
+# Store System (Arquitetura MSC)
 
 Nesse projeto foi desenvolvido uma API RESTful utilizando a arquitetura MSC (model-service-controller).
 
